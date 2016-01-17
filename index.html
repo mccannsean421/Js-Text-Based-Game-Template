@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+	<title>JavaScript Textbased Game</title>
+</head>
+
+<body>
+
+	<p id="gameOutput"></p>
+
+	<input type="text" id="playerInput" placeholder="Enter....">
+
+	<button onclick="playGame()">Play!</button>
+
+	<script>
+		//Game variables
+		var playerLocation = 0;
+		var currentLocation = playerLocation;
+
+		//Reference variables
+		var playerInput = document.getElementById("playerInput");
+		var gameOutput = document.getElementById("gameOutput");
+
+		//Game arrays
+		var mapLocations = [];
+			mapLocations[0] = "Area 1";
+			mapLocations[1] = "Area 2";
+			mapLocations[2] = "Area 3";
+			mapLocations[3] = "Area 4";
+			mapLocations[4] = "Area 5";
+			mapLocations[5] = "Area 6";
+			mapLocations[6] = "Area 7";
+			mapLocations[7] = "Area 8";
+			mapLocations[8] = "Area 9";
+		var backpack = [];
+		var actions = [];
+		var actionsGameUnderstands = ["north", "south", "east", "west", "pick up", "drop"];
+
+		gameOutput.innerHTML = mapLocations[playerLocation];
+
+		function playGame(){
+			//check if player input is null
+			if(playerInput.value == "" || playerInput.value == null)
+				alert("User input is null"); 
+			
+			else
+				//search user input for action word
+				var playerAction = "";
+				playerAction = playerInput.value;
+				for(var i = 0; i < actionsGameUnderstands.length; i++){
+					if(playerAction == actionsGameUnderstands[i])
+						switch(playerAction){
+							case("north"):
+								console.log("GO NORTH");
+								break;
+							case("south"):
+								console.log("GO SOUTH");
+								break;
+							case("east"):
+								if(playerLocation <= 7){
+									playerLocation++;
+									gameOutput.innerHTML = mapLocations[playerLocation];
+									console.log(playerLocation);
+								}
+								else
+									gameOutput.innerHTML = "No you can't go that way";
+								break;
+							case("west"):
+								if(playerLocation > 0){
+									playerLocation--;
+									gameOutput.innerHTML = mapLocations[playerLocation];
+									console.log(playerLocation);
+								}
+								else
+									gameOutput.innerHTML = "No you can't go that way";
+								break;
+							default:
+								gameOutput.innerHTML = "It is not understood what you want to do?";
+								break;
+						}
+					else
+						console.log("no");
+				}
+		}
+
+		function pickUp(){
+
+			//Pick up items and add to inventory
+
+		}
+
+		function dropItem(){
+
+			//Drop items and remove from inventory
+
+		}
+	</script>
+</body>
+
+</html>
