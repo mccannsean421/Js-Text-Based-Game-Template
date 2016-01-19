@@ -8,6 +8,8 @@
 
 <body>
 
+	<h2 id="locationTitle"></h2>
+	<p id="locationMessage"></p>
 	<p id="gameOutput"></p>
 
 	<input type="text" id="playerInput" placeholder="Enter....">
@@ -20,6 +22,8 @@
 		var currentLocation = playerLocation;
 
 		//Reference variables
+		var locationTitle = document.getElementById("locationTitle");
+		var locationMessage = document.getElementById("locationMessage");
 		var playerInput = document.getElementById("playerInput");
 		var gameOutput = document.getElementById("gameOutput");
 
@@ -34,11 +38,24 @@
 			mapLocations[6] = "Area 7";
 			mapLocations[7] = "Area 8";
 			mapLocations[8] = "Area 9";
+
+		var mapLocationMessages = [];
+			mapLocationMessages[0] = "A barren wasteland, where only death and suffering surround you.";
+			mapLocationMessages[1] = "A barren wasteland, where only death and suffering surround you.";
+			mapLocationMessages[2] = "A barren wasteland, where only death and suffering surround you.";
+			mapLocationMessages[3] = "A barren wasteland, where only death and suffering surround you.";
+			mapLocationMessages[4] = "A barren wasteland, where only death and suffering surround you.";
+			mapLocationMessages[5] = "A barren wasteland, where only death and suffering surround you.";
+			mapLocationMessages[6] = "A barren wasteland, where only death and suffering surround you.";
+			mapLocationMessages[7] = "A barren wasteland, where only death and suffering surround you.";
+			mapLocationMessages[9] = "A barren wasteland, where only death and suffering surround you.";
+
 		var backpack = [];
 		var actions = [];
 		var actionsGameUnderstands = ["north", "south", "east", "west", "pick up", "drop"];
+		var itemsInWorld = ['Item 1', "Item 2", "Item 3"];
 
-		gameOutput.innerHTML = mapLocations[playerLocation];
+		locationTitle.innerHTML = mapLocations[playerLocation];
 
 		function playGame(){
 			//check if player input is null
@@ -53,25 +70,33 @@
 					if(playerAction == actionsGameUnderstands[i])
 						switch(playerAction){
 							case("north"):
-								console.log("GO NORTH");
+								if(playerLocation > 2){
+									playerLocation = playerLocation - 3;
+									locationTitle.innerHTML = mapLocations[playerLocation];
+								}
+								else
+									gameOutput.innerHTML = "No you can't go that way";
 								break;
 							case("south"):
-								console.log("GO SOUTH");
+								if(playerLocation < 5){
+									playerLocation = playerLocation + 3;
+									locationTitle.innerHTML = mapLocations[playerLocation];
+								}
+								else
+									gameOutput.innerHTML = "No you can't go that way";
 								break;
 							case("east"):
 								if(playerLocation <= 7){
 									playerLocation++;
-									gameOutput.innerHTML = mapLocations[playerLocation];
-									console.log(playerLocation);
+									locationTitle.innerHTML = mapLocations[playerLocation];
 								}
 								else
 									gameOutput.innerHTML = "No you can't go that way";
 								break;
 							case("west"):
-								if(playerLocation > 0){
+								if(playerLocation > 0 ){
 									playerLocation--;
-									gameOutput.innerHTML = mapLocations[playerLocation];
-									console.log(playerLocation);
+									locationTitle.innerHTML = mapLocations[playerLocation];
 								}
 								else
 									gameOutput.innerHTML = "No you can't go that way";
