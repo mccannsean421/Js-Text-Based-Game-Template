@@ -3,11 +3,10 @@
 <html>
 
 <head>
-	<title>JavaScript Textbased Game</title>
+	<title>JavaScript Textbased Game Example</title>
 </head>
 
 <body>
-
 	<h2 id="locationTitle"></h2>
 	<p id="locationMessage"></p>
 	<p id="gameOutput"></p>
@@ -17,9 +16,7 @@
 	<button onclick="playGame()">Play!</button>
 
 	<script>
-		//Game variables
-		var playerLocation = 0;
-		var currentLocation = playerLocation;
+
 
 		//Reference variables
 		var locationTitle = document.getElementById("locationTitle");
@@ -27,6 +24,10 @@
 		var playerInput = document.getElementById("playerInput");
 		var gameOutput = document.getElementById("gameOutput");
 
+		//Game variables
+		var playerLocation = 4;
+		var currentLocation = playerLocation;
+		locationMessage.innerHTML = "Type either, north, south, east or west to move around the map";
 		//Game arrays
 		var mapLocations = [];
 			mapLocations[0] = "Area 1";
@@ -73,6 +74,7 @@
 								if(playerLocation > 2){
 									playerLocation = playerLocation - 3;
 									locationTitle.innerHTML = mapLocations[playerLocation];
+									locationMessage.innerHTML = mapLocationMessages[playerLocation];
 								}
 								else
 									gameOutput.innerHTML = "No you can't go that way";
@@ -81,6 +83,7 @@
 								if(playerLocation < 5){
 									playerLocation = playerLocation + 3;
 									locationTitle.innerHTML = mapLocations[playerLocation];
+									locationMessage.innerHTML = mapLocationMessages[playerLocation];
 								}
 								else
 									gameOutput.innerHTML = "No you can't go that way";
@@ -89,6 +92,7 @@
 								if(playerLocation <= 7){
 									playerLocation++;
 									locationTitle.innerHTML = mapLocations[playerLocation];
+									locationMessage.innerHTML = mapLocationMessages[playerLocation];
 								}
 								else
 									gameOutput.innerHTML = "No you can't go that way";
@@ -97,6 +101,7 @@
 								if(playerLocation > 0 ){
 									playerLocation--;
 									locationTitle.innerHTML = mapLocations[playerLocation];
+									locationMessage.innerHTML = mapLocationMessages[playerLocation];
 								}
 								else
 									gameOutput.innerHTML = "No you can't go that way";
