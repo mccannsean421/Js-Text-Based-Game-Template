@@ -9,6 +9,7 @@
 <body>
 	<h2 id="locationTitle"></h2>
 	<p id="locationMessage"></p>
+	<p id="itemMessage"></p>
 	<p id="gameOutput"></p>
 
 	<input type="text" id="playerInput" placeholder="Enter....">
@@ -16,18 +17,19 @@
 	<button onclick="playGame()">Play!</button>
 
 	<script>
-
-
 		//Reference variables
 		var locationTitle = document.getElementById("locationTitle");
 		var locationMessage = document.getElementById("locationMessage");
+		var itemMessage = document.getElementById("itemMessage");
 		var playerInput = document.getElementById("playerInput");
 		var gameOutput = document.getElementById("gameOutput");
 
 		//Game variables
 		var playerLocation = 4;
 		var currentLocation = playerLocation;
+		locationMessage.innerHTML = "You see nothing";
 		locationMessage.innerHTML = "Type either, north, south, east or west to move around the map";
+		
 		//Game arrays
 		var mapLocations = [];
 			mapLocations[0] = "Area 1";
@@ -49,29 +51,33 @@
 			mapLocationMessages[5] = "A barren wasteland, where only death and suffering surround you.";
 			mapLocationMessages[6] = "A barren wasteland, where only death and suffering surround you.";
 			mapLocationMessages[7] = "A barren wasteland, where only death and suffering surround you.";
-			mapLocationMessages[9] = "A barren wasteland, where only death and suffering surround you.";
+			mapLocationMessages[8] = "A barren wasteland, where only death and suffering surround you.";
 
 		var backpack = [];
 		var actions = [];
-		var actionsGameUnderstands = ["north", "south", "east", "west", "pick up", "drop"];
-		var itemsInWorld = ['Item 1', "Item 2", "Item 3"];
+		var actionsGameUnderstands = ["north", "south", "east", "west", "take", "drop", "use"];
+		var itemsInWorld = ['Sword', "Sheild", "Dagger"];
+
 
 		locationTitle.innerHTML = mapLocations[playerLocation];
 
 		function playGame(){
+
 			//check if player input is null
 			if(playerInput.value == "" || playerInput.value == null)
-				alert("User input is null"); 
+				gameOutput.innerHTML = "User input is null"; 
 			
-			else
+			else{
 				//search user input for action word
 				var playerAction = "";
 				playerAction = playerInput.value;
+
 				for(var i = 0; i < actionsGameUnderstands.length; i++){
 					if(playerAction == actionsGameUnderstands[i])
 						switch(playerAction){
 							case("north"):
 								if(playerLocation > 2){
+
 									playerLocation = playerLocation - 3;
 									locationTitle.innerHTML = mapLocations[playerLocation];
 									locationMessage.innerHTML = mapLocationMessages[playerLocation];
@@ -86,7 +92,7 @@
 									locationMessage.innerHTML = mapLocationMessages[playerLocation];
 								}
 								else
-									gameOutput.innerHTML = "No you can't go that way";
+									gameOutput.innerHTML = "Unfortunately you cannot go that way....";
 								break;
 							case("east"):
 								if(playerLocation <= 7){
@@ -103,8 +109,14 @@
 									locationTitle.innerHTML = mapLocations[playerLocation];
 									locationMessage.innerHTML = mapLocationMessages[playerLocation];
 								}
-								else
-									gameOutput.innerHTML = "No you can't go that way";
+							case("take"):
+								pickUp();
+								break;
+							case("use"):
+								useItem();
+								break;
+							case("drop"):
+								dropItem();
 								break;
 							default:
 								gameOutput.innerHTML = "It is not understood what you want to do?";
@@ -112,19 +124,37 @@
 						}
 					else
 						console.log("no");
-				}
+				}	
+			}
+
+			//add items to the game world
+			if(playerLocation == 0) {
+				itemMessage.innerHTML = "You see a " + itemsInWorld[0];
+			}
+			else if(playerLocation == 6) {
+				itemMessage.innerHTML = "You see a " + itemsInWorld[2];
+			}
+			else if(playerLocation == 2) {
+				itemMessage.innerHTML = "You see a " + itemsInWorld[1];
+			}
+			else{
+				itemMessage.innerHTML = "You see nothing";
+			}
 		}
 
 		function pickUp(){
-
 			//Pick up items and add to inventory
-
+			console.log(itemsInWorld);
 		}
 
 		function dropItem(){
-
 			//Drop items and remove from inventory
+			console.log("drop");
+		}
 
+		function useItem() {
+			//Use Item
+			console.log("use");
 		}
 	</script>
 </body>
