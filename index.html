@@ -16,6 +16,11 @@
 
 	<button onclick="playGame()">Play!</button>
 
+	<!-- button onclick="" >north</button>
+	<button onclick="">south</button>
+	<button onclick="">east</button>
+	<button onclick="">west</button-->
+
 	<script>
 		//Reference variables
 		var locationTitle = document.getElementById("locationTitle");
@@ -27,7 +32,7 @@
 		//Game variables
 		var playerLocation = 4;
 		var currentLocation = playerLocation;
-		locationMessage.innerHTML = "You see nothing";
+		itemMessage.innerHTML = "You see nothing";
 		locationMessage.innerHTML = "Type either, north, south, east or west to move around the map";
 		
 		//Game arrays
@@ -47,7 +52,7 @@
 			mapLocationMessages[1] = "A barren wasteland, where only death and suffering surround you.";
 			mapLocationMessages[2] = "A barren wasteland, where only death and suffering surround you.";
 			mapLocationMessages[3] = "A barren wasteland, where only death and suffering surround you.";
-			mapLocationMessages[4] = "A barren wasteland, where only death and suffering surround you.";
+			mapLocationMessages[4] = "A beautiful Oasis, fresh water and shelter from the sun can be found here.";
 			mapLocationMessages[5] = "A barren wasteland, where only death and suffering surround you.";
 			mapLocationMessages[6] = "A barren wasteland, where only death and suffering surround you.";
 			mapLocationMessages[7] = "A barren wasteland, where only death and suffering surround you.";
@@ -57,7 +62,12 @@
 		var actions = [];
 		var actionsGameUnderstands = ["north", "south", "east", "west", "take", "drop", "use"];
 		var itemsInWorld = ['Sword', "Sheild", "Dagger"];
+		var itemLocations = [0, 4, 8];
 
+		//initial item locations
+		var swordLocation = 0; 
+		var daggerLocation = 4; 
+		var sheildLocation = 8;
 
 		locationTitle.innerHTML = mapLocations[playerLocation];
 
@@ -65,9 +75,16 @@
 
 			//check if player input is null
 			if(playerInput.value == "" || playerInput.value == null)
-				gameOutput.innerHTML = "User input is null"; 
+				gameOutput.innerHTML = "Unrecognized Command"; 
 			
 			else{
+
+				//sanitize player input
+				var sanitizedString = playerInput.value;
+				sanitizedString.toLowerCase();
+				console.log(sanitizedString);
+
+
 				//search user input for action word
 				var playerAction = "";
 				playerAction = playerInput.value;
@@ -109,6 +126,9 @@
 									locationTitle.innerHTML = mapLocations[playerLocation];
 									locationMessage.innerHTML = mapLocationMessages[playerLocation];
 								}
+								else 
+									gameOutput.innerHTML = "No you can't go that way";
+								break;	
 							case("take"):
 								pickUp();
 								break;
@@ -122,8 +142,6 @@
 								gameOutput.innerHTML = "It is not understood what you want to do?";
 								break;
 						}
-					else
-						console.log("no");
 				}	
 			}
 
@@ -145,11 +163,23 @@
 		function pickUp(){
 			//Pick up items and add to inventory
 			console.log(itemsInWorld);
+
+			//check if there is an item in the players area
+			for(var i = 0; i < itemLocations.length; i++) {
+				if( playerLocation == itemLocations[i] )
+					console.log("you see an item");
+				else 
+					console.log("no item");
+			} 
 		}
 
 		function dropItem(){
 			//Drop items and remove from inventory
 			console.log("drop");
+
+			//remove item from backpack
+			//backpack.pop(itemsInWorld[0]);
+			//console.log(backpack);
 		}
 
 		function useItem() {
